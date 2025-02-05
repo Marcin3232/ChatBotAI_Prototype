@@ -2,8 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Application.Interfaces.Repositories;
 using Infrastructure.Repositories;
+using Application.Common.Interfaces.Repositories;
 
 namespace Infrastructure;
 

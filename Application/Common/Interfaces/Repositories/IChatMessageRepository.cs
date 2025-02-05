@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace Application.Interfaces.Repositories;
+namespace Application.Common.Interfaces.Repositories;
 
 public interface IChatMessageRepository
 {
