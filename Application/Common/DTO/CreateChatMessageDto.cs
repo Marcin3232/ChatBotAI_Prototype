@@ -13,7 +13,6 @@ public class CreateChatMessageDto : IMapTo<ChatMessage>
     void IMapTo<ChatMessage>.Mapping(Profile profile)
     {
         _ = profile.CreateMap<CreateChatMessageDto, ChatMessage>()
-            .ForMember(dst => dst.UserMessage, opt => opt.Ignore())
             .ForMember(dst => dst.User, opt => opt.Ignore())
             .ForMember(dst => dst.Id, opt => opt.Ignore())
             .ForMember(dst => dst.Created, opt => opt.Ignore())

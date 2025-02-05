@@ -7,12 +7,12 @@ using MediatR;
 
 namespace Application.ChatAI.Commands;
 
-public class CreateChatResponseCommandHandler(IMapper mapper, IChatResponseRepository chatResponseRepository) : IRequestHandler<CreateChatResponseCommand, SaveChatResponse>
+public class UpdateChatResponseCommandHandler(IMapper mapper, IChatResponseRepository chatResponseRepository) : IRequestHandler<UpdateChatResponseCommand, SaveChatResponse>
 {
     private readonly IMapper _mapper = mapper;
     private readonly IChatResponseRepository _chatResponseRepository = chatResponseRepository;
 
-    public async Task<SaveChatResponse> Handle(CreateChatResponseCommand request, CancellationToken cancellationToken)
+    public async Task<SaveChatResponse> Handle(UpdateChatResponseCommand request, CancellationToken cancellationToken)
     {
         var response = _mapper.Map<ChatResponse>(request.Response);
         var result = await _chatResponseRepository.SaveAsync(response, cancellationToken);

@@ -9,7 +9,7 @@ public abstract class DbRepository<TEntity>(IApplicationDbContext databaseContex
 {
     protected IApplicationDbContext DatabaseContext { get; } = databaseContext;
 
-    protected virtual async Task<TEntity> SaveAsync(TEntity entity, long entityId, CancellationToken cancellationToken = default)
+    protected virtual async Task<TEntity> SaveAsync(TEntity entity, int entityId, CancellationToken cancellationToken = default)
     {
         DbSet<TEntity> dbSet = DatabaseContext.Set<TEntity>();
         TEntity? dbEntity = await dbSet.FindAsync<TEntity>(entityId, cancellationToken);
@@ -41,7 +41,7 @@ public abstract class DbRepository<TEntity>(IApplicationDbContext databaseContex
         await Task.CompletedTask;
     }
 
-    protected virtual async Task<bool> DeleteAsync(long entityId, CancellationToken cancellationToken = default)
+    protected virtual async Task<bool> DeleteAsync(int entityId, CancellationToken cancellationToken = default)
     {
         DbSet<TEntity> dbSet = DatabaseContext.Set<TEntity>();
         var entity = await dbSet.FindAsync(entityId, cancellationToken);

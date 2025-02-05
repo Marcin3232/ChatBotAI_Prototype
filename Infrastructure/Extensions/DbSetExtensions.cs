@@ -12,7 +12,7 @@ public static class DbSetExtensions
     /// <param name="id">Entity key</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>Found entity or null</returns>
-    public static async ValueTask<T?> FindAsync<T>(this DbSet<T> dbSet, long id, CancellationToken cancellationToken = default) where T : class
+    public static async ValueTask<T?> FindAsync<T>(this DbSet<T> dbSet, int id, CancellationToken cancellationToken = default) where T : class
     {
         return await dbSet.FindAsync([id], cancellationToken);
     }
