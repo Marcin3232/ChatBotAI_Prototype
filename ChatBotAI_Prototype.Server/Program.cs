@@ -14,10 +14,22 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers()
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-            });
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins", policy =>
+    {
+        policy.WithOrigins("https://localhost:3545") 
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -38,6 +50,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseCors("AllowSpecificOrigins");
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");

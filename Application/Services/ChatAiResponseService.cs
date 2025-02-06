@@ -13,7 +13,7 @@ public class ChatAiResponseService : IChatAiResponseService
             "commodo", "consequat"
        ];
 
-    public string GenerateRandomLoremIpsum(int minWords = 10, int maxWords = 800)
+    public string GenerateRandomLoremIpsum(int minWords = 10, int maxWords = 200)
     {
         Random random = new Random();
         int numWords = random.Next(minWords, maxWords + 1);

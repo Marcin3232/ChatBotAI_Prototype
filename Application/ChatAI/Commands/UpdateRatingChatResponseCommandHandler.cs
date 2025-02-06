@@ -22,7 +22,8 @@ public class UpdateRatingChatResponseCommandHandler(IMapper mapper, IChatRespons
         var result = await _chatResponseRepository.SaveAsync(chatResponse, cancellationToken);
         return new()
         {
-            ChatResponse = _mapper.Map<ChatResponseDto>(result)
+            ChatResponse = _mapper.Map<ChatResponseDto>(result),
+            Rating = request.UpdateRatingChatResponse.Rating
         };
     }
 }

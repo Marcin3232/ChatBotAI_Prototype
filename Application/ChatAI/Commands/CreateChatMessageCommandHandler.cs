@@ -28,9 +28,10 @@ public class CreateChatMessageCommandHandler(IMapper mapper, IChatMessageReposit
         message.Responses.Add(generateResponse);
 
         var result = await _chatMessageRepository.SaveAsync(message, cancellationToken);
+        var newMessage = await _chatMessageRepository.GetById(result.Id, cancellationToken);
         return new()
         {
-            Message = _mapper.Map<ChatMessageDto>(message)
+            Message = _mapper.Map<ChatMessageDto>(newMessage)
         };
     }
 }

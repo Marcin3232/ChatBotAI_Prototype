@@ -5,4 +5,5 @@ namespace Application.ChatAI.Responses;
 public class SaveChatResponse
 {
     public ChatResponseDto? ChatResponse { get; set; }
+    public int? Rating { get; set; }
 }
