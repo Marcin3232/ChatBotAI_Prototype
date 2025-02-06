@@ -1,0 +1,94 @@
+<div
+  class="chat-container mat-elevation-z4"
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+>
+  <h1><b>ChatBotAI - Prototype</b></h1>
+  <div #messageContainer class="messages" fxFlex>
+    <div *ngFor="let message of chatMessages" class="message-row">
+      <div class="message-user" *ngIf="message.userMessage">
+        <div class="bubble user">
+          <span class="text">{{ message.userMessage }}</span>
+          <p>
+            <span class="meta"
+              ><b>{{ message.user.name || "Unknown User" }}</b> -
+              {{ message.created | date : "short" }}</span
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="message-bot" *ngIf="message.responses.length > 0">
+        <div
+          class="bubble bot"
+          [ngClass]="{ typing: message === currentMessage }"
+        >
+          <span class="text">
+            {{ message.responses[0].botResponse }}
+            <span *ngIf="message === currentMessage" class="cursor">|</span>
+          </span>
+          <p>
+            <span class="meta">{{
+              message.responses[0].created | date : "short"
+            }}</span>
+          </p>
+
+          <button
+            mat-icon-button
+            [ngClass]="{ like: message.responses[0].rating === 1 }"
+            (click)="
+              rateResponse(
+                message.responses[0],
+                message.responses[0].rating === 1 ? null : 1
+              )
+            "
+          >
+            <mat-icon>{{
+              message.responses[0].rating === 1
+                ? "thumb_up"
+                : "thumb_up_off_alt"
+            }}</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            [ngClass]="{ dislike: message.responses[0].rating === -1 }"
+            (click)="
+              rateResponse(
+                message.responses[0],
+                message.responses[0].rating === -1 ? null : -1
+              )
+            "
+          >
+            <mat-icon>{{
+              message.responses[0].rating === -1
+                ? "thumb_down"
+                : "thumb_down_off_alt"
+            }}</mat-icon>
+          </button>
+        </div>
+
+        <button
+          *ngIf="message === currentMessage"
+          mat-raised-button
+          (click)="stopTyping()"
+        >
+          Stop
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="message-input">
+    <mat-form-field class="input-field">
+      <textarea
+        matInput
+        placeholder="Twoja wiadomość..."
+        [(ngModel)]="newMessage"
+        (keyup.enter)="sendMessage()"
+      ></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="sendMessage()">
+      Send
+    </button>
+  </div>
+</div>
