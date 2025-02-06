@@ -14,6 +14,12 @@ public class ChatMessageDbRepository(IApplicationDbContext databaseContext) : Db
         .Include(x => x.Responses)
         .ToListAsync(cancellationToken);
 
+    public async Task<ChatMessage> GetById(int id, CancellationToken cancellationToken = default)
+        => await DatabaseContext.Messages
+        .Include(x => x.User)
+        .Include(x => x.Responses)
+        .FirstAsync(x => x.Id == id, cancellationToken);
+
     public async Task<ChatMessage> SaveAsync(ChatMessage chatMessage, CancellationToken cancellationToken = default)
         => await SaveAsync(chatMessage, chatMessage.Id, cancellationToken);
 }
